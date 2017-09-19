@@ -104,6 +104,7 @@ urllib.urlretrieve(待下载的壁纸，下载到本地的地址)
 之后其实想要写一个进度条的程序，暂时还没有做，以后补上好了~
 
 我们的壁纸到这里其实就下载结束了。
+
 ```c
 # -*- coding: utf-8 -*-
 import os
@@ -116,28 +117,24 @@ from bs4 import BeautifulSoup
 def grab_webpage(websites,order):
     content = urllib2.urlopen(websites).read()
     soup=BeautifulSoup(content,'html.parser')
-    # //////////////////////////////////////////no.1版本的代码
     pictures=soup.find_all(title="Click the preview for more details about this desktop background.")
-    # ............................................................找到壁纸的地址
-    picture_resolution = soup.find_all('select')  # ................找到壁纸的可选分辨率
+    picture_resolution = soup.find_all('select') 
     picture_resolution_list=[]
     for item in picture_resolution:
-        tempt=BeautifulSoup(str(item),'html.parser')    # BeautifulSoup函数将str类型变为BeautifulSoup对象，就可以进行操作了
+        tempt=BeautifulSoup(str(item),'html.parser')   
         item_text=tempt.get_text()
         picture_resolution_list.append(item_text)
-    # print picture_resolution_list[0].splitlines() 按照"\n"来划分
-    # ///////////////////////////////////////////////////////////////////
     resolution_list_real=[]
     for item1 in picture_resolution_list:
-        tempt_all=item1.split()  # .................................按空格划分字符串
+        tempt_all=item1.split()  
         order=0
         while(order<len(tempt_all)):
             if(tempt_all[order][0] not in '123456789'):
-                tempt_all.remove(tempt_all[order])  # ..................去掉非数字部分
+                tempt_all.remove(tempt_all[order])  
                 order=order-1
             order=order+1
         # print tempt_all
-        maxium = 0  # ...............................................寻找最大的分辨率
+        maxium = 0  
         resolution=''
         for item_number in tempt_all:
             if (('x' in item_number) and (int(item_number[0:item_number.index('x')])>maxium)):
@@ -145,29 +142,18 @@ def grab_webpage(websites,order):
                 resolution=item_number
         if "2560x1600" in tempt_all:
             resolution="2880x1800"
-        resolution_list_real.append(resolution)# ....................将分辨率写到resolution_list_real中
-    #print resolution_list_real
-    # --------------------------------------------------------------------------find()和find_all()函数的返回值是两个不一样的类型
-    # print "///////////////////////////////////////////////////////////////"find()是bs4.element.Tag，可以直接用get_text()函数，
-    # print type(soup.find('select'))
-    # print type(soup.find_all('select'))
-    # ---------------------------------------------------------------------------find_all()是bs4.element.ResultSet，不可以用get_text()
-
-    #print pictures
-    # ////////////////////////////////////////////////////////////////////
+        resolution_list_real.append(resolution)
+ 
     picture_list=[]
     for item in range(len(pictures)):
         if 'previews' in pictures[item]['src']:
             item_temp = pictures[item]['src'].replace('previews', '7yz4ma1')
-            item_final = item_temp.replace('672x420', resolution_list_real[item])  # ...找到每个图片的下载地址
+            item_final = item_temp.replace('672x420', resolution_list_real[item])  
         else:
             print "item don't have previews"
             item_final=pictures[item]
         picture_list.append(item_final)
     print picture_list
-    # ///////////////////////////////////////////////////////////////////
-    #print picture_list[1].split("/")
-    # ///////////////////////////////////////////////////////////////////////////////////////////////NO.1版本的代码
     path=u'/Users/wuwenda/Downloads/壁纸/interfacelift/'
     print "Now start download No."+str(order)+" pictures."
     for i in range(len(picture_list)):
@@ -182,18 +168,16 @@ def grab_webpage(websites,order):
         else:
             try:
                 #print picture_list
-                urllib.urlretrieve(picture_list[i], item_path)  # ..........................下载壁纸
+                urllib.urlretrieve(picture_list[i], item_path)  
             except Exception as e:
                 traceback.print_exc()
                 print '\tError retrieving the URL:' + picture_list[i]
         print 'Have done NO.'+str(order)+' page: ' + str(i + 1) + '/' + str(len(picture_list))
-    # ///////////////////////////////////////////////////////////////////////////////////////////////
-# ///////////////////////////////////////////////////////////////////////////////////////////////////////////NO.1版本的代码
 for i in range(1,390):
     websites='http://interfacelift.com/wallpaper/downloads/date/any/index'+str(i)+'.html'#index1-index389
     grab_webpage(websites,i)
-# ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-‘’‘
+```
+
 写在2017-09-19
 在运行时候发现一个小问题，并不是所有的壁纸都有2560分辨率的选项，而且2880的分辨率相比好像效果更好。
 因此原代码已经不能满足需求了，找不到2560的分辨率，会下载740的低分辨率的壁纸。
