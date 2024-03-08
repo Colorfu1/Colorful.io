@@ -113,3 +113,13 @@ jekyll server
 微信
 ----------------
 ![微信二维码付款给Freud](/styles/images/weixin.png)
+----------------
+环境：shadowsocks、windows
+本地ss端口设置(这里1080)
+
+cmd命令行:(不用socks5)(临时设置)(也可放置环境变量)
+set http_proxy=http://127.0.0.1:1080
+set https_proxy=http://127.0.0.1:1080
+
+ps:一定要用cmd命令行，千万别用powershell !!!
+简易测试命令：curl https://www.google.com（别用ping）
