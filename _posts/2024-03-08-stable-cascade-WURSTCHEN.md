@@ -45,7 +45,7 @@ Stage C: The strongly compressed latents of the Semantic Compressor from Stage B
 6. We use a cosine schedule to generate  ̄αt and use continuous timesteps
 7. We decided to formulate the stage C objective as such, since it made the training more stable ![objective](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-03-08-153032.png)
 8. Stage C consists of 16 ConvNeXt-block (Liu et al., 2022b) without downsampling
-9. We use the standard meansquared-error loss between the predicted noise and the ground truth noise. Additionally, we employ the p2 loss weighting:p2(t)· || ε −  ̄ε ||2,where p2(t) is defined as (1−  ̄αt) / ( 1+  ̄αt) , making higher noise levels contribute more to the loss
+9. We use the standard meansquared-error loss between the predicted noise and the ground truth noise. Additionally, we employ the p2 loss weighting:$p2(t)· || ε −  ̄ε ||2$,where p2(t) is defined as $(1−  ̄αt) / ( 1+  ̄αt)$ , making higher noise levels contribute more to the loss
 10. initial noise -> stage C -> regard it as semantic compressor of (16 * 24 * 24) -> (16 * 576), concat with text embeding -> stage B (with 4 * 256  *256 initialized with random tokens from VQGAN codebook) -> stage A decode
 11. we trained an 18M parameter Stage A, a 1B parameter Stage B and a 1B parameter Stage C, All stages were trained on subsets of the improved-aesthetic LAION-5B dataset.
 12. Both stages also make use of classifier-free-guidance with guidance scale w. We fix the hyperparameters for Stage B sampling to τB = 12 and w = 4, Stage C uses τC = 60 for sampling
