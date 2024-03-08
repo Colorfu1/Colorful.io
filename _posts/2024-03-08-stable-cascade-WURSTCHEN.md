@@ -26,7 +26,7 @@ A very low dimensional latent space with a high compression ratio of 42:1 (stage
 
 **Inference time**, a text-conditional LDM is used to create a low dimensional latent representation of the image (Stage C)(c_c, 24, 24). This latent representation is used to condition another LDM (Stage B), producing a latent image in a latent space of higher dimensionality(c_b, 256, 256). Finally, the latent image is decoded by a VQGAN-decoder to yield the full-resolution output image (Stage A)(3, 1024, 1024).
 ### Inference Stage
-![Inference](https://github.com/Colorfu1/Colorful.io/blob/master/_posts/resources/202024-03-08-20144906.png)
+![Inference](https://github.com/Colorfu1/Colorful.io/blob/master/_posts/resources/2024-03-08-20144906.png)
 
 **Training time** 
 Stage A: Employs a VQGAN to create a latent space
@@ -34,7 +34,7 @@ Stage B: A latent diffusion process, conditioned on the outputs of a Semantic Co
 Stage C: The strongly compressed latents of the Semantic Compressor from Stage B are used to project images into the condensed latent space where a text-conditional LDM is trained.
 
 ### Train Stage
-![Train](https://github.com/Colorfu1/Colorful.io/blob/master/_posts/resources/202024-03-08-20145442.png)
+![Train](https://github.com/Colorfu1/Colorful.io/blob/master/_posts/resources/2024-03-08-20145442.png)
 
 ### Details
 1. makes use of Stages A & B to achieve a notably higher compression than usual, Stage A consists of a f 4 VQGAN -> encodes images X ∈ R3×1024×1024 into 256 × 256 discrete tokens. 
