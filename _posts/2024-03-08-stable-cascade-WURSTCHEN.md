@@ -58,6 +58,7 @@ With this approach we are able to train a 1B parameter Stage C textconditional d
 ![other score](https://github.com/Colorfu1/Colorful.io/blob/master/_posts/resources/2024-03-08-162624.png)
 
 a: However, for MS-COCO this statistic is inconclusive. We hypothesize that this is due to the vague prompts generating a more diverse set of images, making the preference more subject to personal taste, biasing this statistics towards users that completed more comparisons
+
 b:By doing so, we include only individuals with at least 30 (MS-COCO) and 51 (Parti-prompts) comparisons in the statistic -> In summary, the human preference experiments confirm the observation made in the PickScore experiments.
 ![human choice](https://github.com/Colorfu1/Colorful.io/blob/master/_posts/resources/2024-03-08-163710.png)
 ![speed_1](https://github.com/Colorfu1/Colorful.io/blob/master/_posts/resources/2024-03-08-162807.png)
