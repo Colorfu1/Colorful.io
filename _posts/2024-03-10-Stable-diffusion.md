@@ -2,8 +2,8 @@
 layout: post
 title:  "High-Resolution Image Synthesis with Latent Diffusion Models"
 date:   2024-03-10 13:45:01 +0800
-categories: deep learning
-tag: stable diffusion
+categories: deep_learning
+tag: stable_diffusion
 ---
 
 

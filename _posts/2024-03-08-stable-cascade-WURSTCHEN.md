@@ -2,8 +2,8 @@
 layout: post
 title:  "W ̈URSTCHEN: AN EFFICIENT ARCHITECTURE FOR LARGE-SCALETEXT-TO-IMAGE DIFFUSION MODELS"
 date:   2024-03-08 14:31:01 +0800
-categories: deep learning
-tag: stable diffusion
+categories: deep_learning
+tag: stable_diffusion
 ---
 
 
