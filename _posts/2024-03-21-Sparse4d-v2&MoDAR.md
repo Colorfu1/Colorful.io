@@ -21,6 +21,7 @@ tag: stable_diffusion
 - decoupled atttention: add 2 mlp in before and after attention
 
 ### MoDAR
+![process](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-03-21-145314.png)
 - occluded and long-range objects, can be alleviated by long-term sequence data but unefficiency
 - MoDAR, using motion forecasting outputs as a type of virtual modality, to augment LiDAR point clouds; The MoDAR modality propagates object information from temporal contexts to a target frame, represented as a set of virtual points.
 - MoDAR, which represents object information propagated from past (or/and from future, in an offline setting) to the current frame
