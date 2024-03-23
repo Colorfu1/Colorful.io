@@ -3,7 +3,7 @@ layout: post
 title:  "UniVision: A Unified Framework for Vision-Centric 3D Perception"
 date:   2024-03-19 15:45:01 +0800
 categories: deep_learning
-tag: stable_diffusion
+tag: lidar_deep_learning
 ---
 
 

@@ -3,7 +3,7 @@ layout: post
 title:  "Sparse4D & MoDar"
 date:   2024-03-21 13:04:01 +0800
 categories: deep_learning
-tag: stable_diffusion
+tag: lidar_deep_learning
 ---
 
 
