@@ -49,7 +49,7 @@ tag: stable_diffusion
   $$
   Block[s](\epsilon)_{x,y}=\frac{1}{s}\sum_{i=0}^{s-1}\sum_{j=0}^{s-1}\epsilon_{x-i,y-j}
   $$
-  - where $\text{Block[s]}(\epsilon)_{x,y}$ is the block noise at the position (x,y), and $\epsilon_{-x}=\epsilon_{x_{max}-x}$. 对于点(x,y),以其为右上点，画一个s*s的范围，用这个范围内的均值代替(x,y)位置的值。
+  - where $Block\[s\](\epsilon)_{x,y}$ is the block noise at the position (x,y), and $\epsilon_{-x}=\epsilon_{x_{max}-x}$. 对于点(x,y),以其为右上点，画一个s*s的范围，用这个范围内的均值代替(x,y)位置的值。
 - Why does the cascaded models alleviate this issue?
   - The reason is that in the super-resolution stages, the low-resolution condition greatly ease the difficulty of the early steps, so that even the higher SNR requires a more accurate input, the accuracy is within the capability of the model.
 - RDM
