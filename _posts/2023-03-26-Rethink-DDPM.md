@@ -1,6 +1,0 @@
-- 假设真实世界的图片有一个分布P_data, DDPM想做的事情是，我从P_data里面采样噪声，然后通过模型来进行去噪，根据去噪结果和真实样本的差异可以得更新去噪model，这样在inference的时候我只要采样一个P_data里面的噪声，就可以通过去噪模块生成P_data中的数据
-- 那么假设模型去噪获取的分布是P_theta，那么我们想要做的事情是使得现在的样本x, P_theta(x)和P_data(x)的分布尽可能一致，所以优化这个就变成了使得这俩分布的KL散度一致，经过推导变成使得P_theta(x)的概率最大
-- 因为P_theta(x)的过程要依赖之前的diffusion过程，所以我们引入diffusion的过程q(z|x)，然后再经过一番推导，得到了要使得q(x_{t-1}|x_t, x_0)和p(x_{t-1}|x_t)的KL散度最小。
-- 对q做变化和推导，得到q的分布的表示$\mu = = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{1 - \alpha_t}{\sqrt{1 - \alpha_t}} e \right)$, $\sigma^2_q = \frac{(1 - \alpha_t)(1 - \alpha_{t-1})}{1 - \alpha_t}$, 然后我们假设模型的均值和方差为$\mu_\theta$, $\sigma_{\theta}$，那么我们要尽量使$\mu_\theta$, $\sigma_{\theta}$向q的靠近。那么![]()
-- 但是现在的问题来了，因为加的噪声理想情况下是经过P_data中采样得到的，它的分布是我们想要用$\mu_\theta$, $\sigma_{\theta}$来逼近的。但是这个噪声采样的均值和方差我们不知道，采样完是一个固定的值，我们没有办法进行操作，获取的梯度。所以我们使用了重参数的方法，将噪声变化为服从(0, 1)分布的高斯噪声，然后我们预测的噪声就变成了$(pred_{\theta} - \sigma_{\theta}) / \mu_{\theta}$, 目标是$(pred_{\theta} - \sigma_{data}) / \mu_{data}$。这样我们也获取了用来优化$\mu_\theta$, $\sigma_{\theta}$的梯度.
-- 所以采样的噪声就从P_data中的噪声变成（0，1）分布的噪声就可以了。
