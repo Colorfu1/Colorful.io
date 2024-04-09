@@ -14,7 +14,7 @@ tag: stable_diffusion
 - VAR makes GPT-style AR models surpass diffusion transformers in image generation. better (FID 1.80, IS 356.4) and faster (with 20× faster inference speed)
 - Scaling up VAR models exhibits clear power-law scaling laws similar to those observed in LLMs, VAR has initially emulated the two important properties of LLMs: Scaling Lawsand zero-shot generalization
 - Our approach begins by encoding an image into multi-scale token maps. The autoregressive process is then started from the 1×1 token map, and progressively expands in resolution: at each step, the transformer predicts the next higher-resolution token map conditioned on all previous ones
-![OverView]()
+![OverView](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-04-09-103242.png)
 #### Related work
 - Scaling laws describe the relationship between the growth of model parameters, dataset sizes, computational resources
 - Image tokenizer and autoregressive models. VQVAE, VQGAN, VQVAE-2, RQ Transformer, ViT-VQGAN
@@ -42,7 +42,7 @@ $$
 p(r_1,r_2,\ldots,r_K)=\prod_{k=1}^Kp(r_k\mid r_1,r_2,\ldots,r_{k-1}),
 $$
 - where each autoregressive unit $r_k\in[V]^{h_k\times w_k}$ is the token map at scale $k$, and the sequence $(r_1,r_2,\ldots,r_{k-1})$ serves as the the “prefix” for $r_k$. During the $k$-th autoregressive step, all distributions over the $h_k\times w_k$ tokens in $r_k$ are inter-dependent and will be generated in parallel, conditioned on $r_k$ 's prefix and associated $k$-th position embedding map. This “next-scale prediction’ methodology is what we define as visual autoregressive modeling (VAR).
-![process]()
+![process](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-04-09-150754.png)
 - Discussion
   - The mathematical premise is satisfied if we constrain each $r_k$ to depend only on its prefix
   - there is no flattening operation in VAR, and tokens in each $r_k$ are fully correlated
@@ -50,7 +50,7 @@ $$
 - Tokenization.
   - We employ the same architecture as VQGAN but with a modified multi-scale quantization layer
   - Note that a shared codebook $Z$ is utilized across all scales, ensuring that each $r_k$ 's tokens belong to the same vocabulary $[V].$ To address the information loss in upscaling $z_k$ to $h_K\times w_K$, we use $K$ extra convolution layers $\{\phi_k\}_{k=1}^K.$ No convolution is used after downsampling $f$ to $h_k\times w_k.$
-![Algorithm]()
+![Algorithm](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-04-09-151544.png)
 ##### Implementation
 - VAR tokenizer. K extra convolutions, codebook for all scales with V = 4096 and a latent dim of 32. trained on OpenImages with the compound loss
 - VAR transformer. 
@@ -60,4 +60,8 @@ $$
 $$
 \begin{aligned}w=64d,\quad&h=d,\quad&dr=0.1\cdot d/24.\end{aligned}
 $$
-- 但是inference是如何做的没有仔细说，猜测是。从code book sample一个vector index, upsample 到下一个stage的分辨率，然后过transformer得到预测的indexes，过embeding再过Decoder得到inference的结果。
+- 但是inference是如何做的没有仔细说，猜测是。从code book sample一个vector index, 其他地方进行填充，然后过transformer层次预测得到最后的indexes，过embeding再过Decoder得到inference的结果。
+![result1](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-04-09-164305.png)
+![result2](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-04-09-164715.png)
+![result3](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-04-09-165013.png)
+![result4](https://github.com/Colorfu1/Colorful.io/raw/master/_posts/resources/2024-04-09-165137.png)
